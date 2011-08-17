@@ -2,11 +2,10 @@
 
 deCSS3 is a bookmarklet that will let you see how well your pages are gracefully degrading without having to open up IE6-8.
 
-Drag this -> [deCSS3](javascript:s=document.createElement('script'\);s.type='text/javascript';s.src='http://raw.github.com/davatron5000/deCSS3/master/deCSS3.js?v='+parseInt(Math.random(\)*99999999\);document.body.appendChild(s\);)
+[Try it out!](http://davatron5000.github.com/deCSS3/)
 
 ## TODO
 
-* Create `gh-pages` for bookmarklet (see below)
 * Create `emptyStyles` function that loops through CSS and empties out all (parenthetical) properties.
 
 Fun part: minimum browser requirement is modern browsers only.
@@ -67,11 +66,6 @@ Our cloud-based feature matrix serves as a roadmap for what is hopefully full su
 </tbody>
 </table>
 
-### Bookmarklet
+## Want to help?
 
-		javascript:(function(){
-		  s=document.createElement('script');
-		  s.type='text/javascript';
-		  s.src='http://raw.github.com/davatron5000/deCSS3/master/deCSS3.js';
-		  document.body.appendChild(s);
-		})();
+If you're interested in helping? Please let us know! We're looking for a brain trust.
