@@ -11,6 +11,7 @@ var deCSS3 = {
 			rules += this.addPrefixes("text-shadow:none!important;");
 			rules += this.addPrefixes("box-shadow:none!important;");
 			rules += this.addPrefixes("border-radius:0!important;");
+			// TODO: column-count, background-clip, background-origin, background-size?
 			rules += '}';
 			
 			appendStyle.innerText = rules;
@@ -34,7 +35,7 @@ var deCSS3 = {
 			# TODO: write function that detects certain CSS3 rules and emptys out the rule to override
 			# e.g., rgba(0,0,0,0.4) can be overriden by rgba()
 			# 
-			# @rules = linear-gradient, multiplebg images, rgb, rgba, hsl, hsla, mediaqueries ;
+			# @rules = linear-gradient, multiplebg images, rgb, rgba, hsl, hsla, mediaqueries, background-size, @font-face?
 			*/
 		}
 }
