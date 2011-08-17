@@ -42,7 +42,7 @@ Our cloud-based feature matrix serves as a roadmap for what is hopefully full su
   <td>colors: <code>rgb, rgba, hsl, hsla</code></td><td>No</td>
 </tr>
 <tr>
-  <td><code>column-count</code></td><td>No</td>
+  <td><code>column-count</code></td><td>Yes</td>
 </tr>
 <tr>
   <td><code>linear-gradient</code></td><td>No</td>
@@ -57,10 +57,10 @@ Our cloud-based feature matrix serves as a roadmap for what is hopefully full su
   <td><code>text-shadow</code></td><td>Yes</td>
 </tr>
 <tr>
-  <td><code>transform</code></td><td>No</td>
+  <td><code>transform</code></td><td>Yes</td>
 </tr>
 <tr>
-  <td><code>transition</code></td><td>No</td>
+  <td><code>transition</code></td><td>Yes</td>
 </tr>
 </tbody>
 </table>

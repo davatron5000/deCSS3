@@ -8,10 +8,14 @@ var deCSS3 = {
 		addStyleBlock: function(){
 	    var appendStyle = document.createElement('style');
 			var rules = '* {';
-			rules += this.addPrefixes("text-shadow:none!important;");
-			rules += this.addPrefixes("box-shadow:none!important;");
 			rules += this.addPrefixes("border-radius:0!important;");
-			// TODO: column-count, background-clip, background-origin, background-size?
+			rules += this.addPrefixes("box-shadow:none!important;");
+			rules += this.addPrefixes("column-count:1!important;");
+			rules += this.addPrefixes("column-gap:0!important;");
+			rules += this.addPrefixes("text-shadow:none!important;");
+			rules += this.addPrefixes("transform:none!important;");
+			rules += this.addPrefixes("transition:none!important;");
+			// TODO: background-clip, background-origin, background-size?, animation
 			rules += '}';
 			
 			appendStyle.innerText = rules;
@@ -23,8 +27,8 @@ var deCSS3 = {
 		addPrefixes: function(rule) {
 			var prefixes = ['-webkit-','-moz-','-o-','-ms-','-khtml-'];
 			var prefixedRule = "";
-			prefixes.forEach(function(i){
-				prefixedRule += i + rule;
+			prefixes.forEach(function(prefix){
+				prefixedRule += prefix + rule;
 			});
 			prefixedRule += rule;
 			return prefixedRule;
@@ -35,7 +39,7 @@ var deCSS3 = {
 			# TODO: write function that detects certain CSS3 rules and emptys out the rule to override
 			# e.g., rgba(0,0,0,0.4) can be overriden by rgba()
 			# 
-			# @rules = linear-gradient, multiplebg images, rgb, rgba, hsl, hsla, mediaqueries, background-size, @font-face?
+			# @rules = linear-gradient, multiplebg images, rgb, rgba, hsl, hsla, mediaqueries, background-size?, @font-face?
 			*/
 		}
 }
