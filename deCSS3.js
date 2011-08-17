@@ -37,5 +37,5 @@ var deCSS3 = {
 			# @rules = linear-gradient, multiplebg images, rgb, rgba, hsl, hsla, mediaqueries ;
 			*/
 		}
-		
 }
+deCSS3.init();

@@ -3,27 +3,38 @@
 	<head>
 		<title>deCSS3</title>
 		<style type="text/css" media="screen">
+			body {
+				padding-top: 120px;
+				text-align: center;
+			}
 			a {
+				background: #444;
 				background-image: -webkit-linear-gradient(top, #444444, #999999);
-				padding: 40px;
-				text-align:center;
 				border-radius: 10px;
+				box-shadow: 10px 10px 10px #000;
 				color:#fff;
 				color:rgba(255,255,255,0.8);
-				box-shadow: 10px 10px 10px #000;
-				text-shadow: 2px 2px 2px #000;
 				font-size: 60px;
 				font-family: sans-serif;
+				font-weight: bold;
+				padding: 40px;
+				text-align:center;
+				text-decoration: none;
+				text-shadow: 2px 2px 2px #000;
 			}
 		</style
 	</head>
 	<body>
 		<a href="#">deCSS3 Me!</a>
 		
-		<script src="./deCSS3.js"></script>
 		<script>
 			var trigger = document.getElementsByTagName('a');
-			trigger[0].onclick = function(){ deCSS3.init() };
+			trigger[0].onclick = function(){ 
+			  s=document.createElement('script');
+			  s.type='text/javascript';
+			  s.src='deCSS3.js';
+			  document.body.appendChild(s);
+			};
 		</script>
 		
 	</body>
