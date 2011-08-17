@@ -444,10 +444,16 @@ header {
 }
 
 header h1 {
-	color: #e33100;
+	color: #2daebf;
+	font-family: 'Cabin', sans-serif;
 	font-size: 80px;
 	margin-bottom: 0;
-	text-shadow: 1px 1px 3px #000;
+	text-shadow: 1px 1px 2px #1a1a1a;
+}
+
+header h1 .logo-box {
+	margin-left: 8px;
+	cursor: default!important;
 }
 
 #content {
@@ -460,19 +466,26 @@ header h1 {
 }
 
 .bookmarklet {
-	background: orange;
-	border-radius: 7px;
-	box-shadow: 5px 5px 0 green;
-	font-size: 1.2em;
-	padding: 5px 10px;
-	text-decoration: none;
+	position: relative;
+	top: -3px;
 }
 
 footer {
 	font-size: 0.8em;
 }
 
-/* Buttons
+a {
+	color: #e33100;
+}
+
+a:hover, 
+a:focus,
+a:visited {
+	color: #999;
+}
+
+/* Super Awesome Buttons from Zurb
+ * http://www.zurb.com/article/266/super-awesome-buttons-with-css3-and-rgba
 */
 
 /* Sizes ---------- */
