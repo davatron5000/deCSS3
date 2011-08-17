@@ -454,6 +454,11 @@ header h1 {
 	margin-bottom: 3em;
 }
 
+#content p {
+	line-height: 1.5em;
+	margin-bottom: 1.5em;
+}
+
 .bookmarklet {
 	background: orange;
 	border-radius: 7px;
