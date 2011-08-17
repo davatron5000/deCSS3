@@ -2,7 +2,7 @@
 
 deCSS3 is a bookmarklet that will let you see how well your pages are gracefully degrading without having to open up IE6-8.
 
-Drag This -> <a href="javascript:(function(){ s=document.createElement('script'); s.type='text/javascript'; s.src='http://raw.github.com/davatron5000/deCSS3/master/deCSS3.js?v='+parseInt(Math.random()*99999999); document.body.appendChild(s);})();">deCSS3</a>
+<a href="javascript:(function(){s=document.createElement('script');s.type='text/javascript';s.src='http://raw.github.com/davatron5000/deCSS3/master/deCSS3.js?v='+parseInt(Math.random()*99999999);document.body.appendChild(s);})();">deCSS3</a>
 
 ## TODO
 
