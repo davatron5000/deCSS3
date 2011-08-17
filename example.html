@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>deCSS3</title>
+		<style type="text/css" media="screen">
+			a {
+				background-image: -webkit-linear-gradient(top, #444444, #999999);
+				padding: 40px;
+				text-align:center;
+				border-radius: 10px;
+				color:#fff;
+				color:rgba(255,255,255,0.8);
+				box-shadow: 10px 10px 10px #000;
+				text-shadow: 2px 2px 2px #000;
+				font-size: 60px;
+				font-family: sans-serif;
+			}
+		</style
+	</head>
+	<body>
+		<a href="#">deCSS3 Me!</a>
+		
+		<script src="./deCSS3.js"></script>
+		<script>
+			var trigger = document.getElementsByTagName('a');
+			trigger[0].onclick = function(){ deCSS3.init() };
+		</script>
+		
+	</body>
+</html>
