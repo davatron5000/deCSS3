@@ -4,7 +4,11 @@
 		<title>deCSS3</title>
 		<style type="text/css" media="screen">
 			body {
-				padding-top: 120px;
+				padding: 40px;
+			}
+		
+			header {
+				margin: 40px 0 60px;
 				text-align: center;
 			}
 			a {
@@ -24,7 +28,7 @@
 				text-decoration: none;
 				text-shadow: 2px 2px 2px #000;
 				width: 400px;
-				-webkit-transform: rotate(-10deg);
+				-webkit-transform: rotate(-5deg);
 				-webkit-transition: all 1s linear;
 			}
 			
@@ -32,7 +36,7 @@
 				background: #f00;
 			}
 			
-			p {
+			p:last-of-type {
 				-webkit-column-count: 3;
 				
 			}
@@ -40,9 +44,15 @@
 		</style
 	</head>
 	<body>
+		<header>
 		<a href="#">deCSS3 Me!</a>
+		</header>
 		
+		<section>
 		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		</section>
 		
 		<script>
 			var trigger = document.getElementsByTagName('a');

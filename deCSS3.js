@@ -11,7 +11,9 @@ var deCSS3 = {
 			rules += this.addPrefixes("border-radius:0!important;");
 			rules += this.addPrefixes("box-shadow:none!important;");
 			rules += this.addPrefixes("column-count:1!important;");
+			rules += this.addPrefixes("column-count:none!important;");
 			rules += this.addPrefixes("column-gap:0!important;");
+			rules += this.addPrefixes("column-span:all!important;");
 			rules += this.addPrefixes("text-shadow:none!important;");
 			rules += this.addPrefixes("transform:none!important;");
 			rules += this.addPrefixes("transition:none!important;");
@@ -25,7 +27,7 @@ var deCSS3 = {
 		},
 		
 		addPrefixes: function(rule) {
-			var prefixes = ['-webkit-','-moz-','-o-','-ms-','-khtml-'];
+			var prefixes = ['-webkit-','-moz-','-o-'];
 			var prefixedRule = "";
 			prefixes.forEach(function(prefix){
 				prefixedRule += prefix + rule;
