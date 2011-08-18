@@ -49,15 +49,15 @@ var deCSS3 = {
 			for(var i=0; i < document.styleSheets.length; i++) {
 				var stylesheet = document.styleSheets[i];
 				
-				if(stylesheet.rules) {
-				var numRules = stylesheet.rules.length;
+				if(stylesheet.cssRules) {
+				var numRules = stylesheet.cssRules.length;
 				var rulesToDelete = [];
 				
 					// -- loop each rule
 					for(var j=0; j < numRules; j++) {
 				
 							var newRule = "";
-							var currentRule = stylesheet.rules[j];
+							var currentRule = stylesheet.cssRules[j];
 							var currentRuleText = currentRule.cssText;
 							
 							var found = currentRuleText.match(/\@media|column-count|rgba|hsla|linear-gradient/g);
