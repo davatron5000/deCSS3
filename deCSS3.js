@@ -49,10 +49,10 @@ var deCSS3 = {
 			for(var i=0; i < document.styleSheets.length; i++) {
 				var stylesheet = document.styleSheets[i];
 				
+				if(stylesheet.rules) {
 				var numRules = stylesheet.rules.length;
 				var rulesToDelete = [];
 				
-				if(numRules) {
 					// -- loop each rule
 					for(var j=0; j < numRules; j++) {
 				
@@ -97,9 +97,9 @@ var deCSS3 = {
 	
 					}
 				
-				rulesToDelete.reverse().forEach(function(element){
-					stylesheet.deleteRule(element);	
-				});
+					rulesToDelete.reverse().forEach(function(element){
+						stylesheet.deleteRule(element);	
+					});
 				}
 			}
 			return newRules;
