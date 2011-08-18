@@ -6,7 +6,7 @@ var deCSS3 = {
       rules += this.overrideRules();
 			
 			appendStyle.id = "deCSS3";
-			appendStyle.innerText = rules;
+			appendStyle.textContent = rules;
 	    document.body.appendChild(appendStyle);
 
 		},
