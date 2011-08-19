@@ -19,10 +19,11 @@
 		<p>A bookmarklet for testing your graceful degradation.</p>
 	</header>
 	<section id="content">
-		<p>Drag this to Bookmarks Bar &rarr; <a class="bookmarklet awesome large red" href="javascript:s=document.createElement('script');s.type='text/javascript';s.src='http://raw.github.com/davatron5000/deCSS3/master/deCSS3.js?v='+parseInt(Math.random()*99999999);document.body.appendChild(s);">
+		<p>Drag this to Bookmarks Bar &rarr; <a class="bookmarklet awesome large red" href="javascript:(function(){s=document.createElement('script');s.type='text/javascript';s.src='https://raw.github.com/davatron5000/deCSS3/master/deCSS3.js?v='+parseInt(Math.random()*99999999);document.body.appendChild(s);})();">
 	deCSS3</a></p>
 		<p>Use the bookmarklet to get a whiff of what your site will look like on older browsers that don't support CSS3.</p>
 		<p>It doesn't do much right now, but if you&rsquo;d like to help please <a href="https://github.com/davatron5000/deCSS3">fork it on Github</a>, we're looking for collaborators.</p>
+		<p class="supports"><strong>Currently supports:</strong> Chrome, Safari</p>
 	</section>
 	
 	<footer>

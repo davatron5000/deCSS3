@@ -439,7 +439,6 @@ table {
 }
 
 header {
-	margin-bottom: 3em;
 	text-align: center;
 }
 
@@ -456,8 +455,13 @@ header h1 .logo-box {
 	cursor: default!important;
 }
 
+header, #content, footer {
+	margin-bottom: 2em;
+  overflow: hidden;
+}
+
 #content {
-	margin-bottom: 3em;
+  overflow: hidden;
 }
 
 #content p {
