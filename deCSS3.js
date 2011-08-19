@@ -1,109 +1,106 @@
 var deCSS3 = {
-		
-		init: function(){
- 	    var rules = "", appendStyle = document.createElement('style');
-			rules += this.addStyleBlock();
-      rules += this.overrideRules();
-			
-			appendStyle.id = "deCSS3";
-			appendStyle.textContent = rules;
-	    document.body.appendChild(appendStyle);
 
-		},
-	
-		addStyleBlock: function(){
-			var rules = '* {';
-			rules += this.addPrefixes("border-radius:0!important;");
-			rules += this.addPrefixes("box-shadow:none!important;");
-			rules += this.addPrefixes("column-span:all!important;");
-			rules += this.addPrefixes("text-shadow:none!important;");
-			rules += this.addPrefixes("transform:none!important;");
-			rules += this.addPrefixes("transition:none!important;");
-			// TODO: background-clip, background-origin, background-size?, animation
-			rules += '}';
+  init: function(){
+    var appendStyle = document.createElement('style');
+    appendStyle.id = "deCSS3";
+    appendStyle.textContent = this.addStyleBlock() + this.overrideRules();
+    document.body.appendChild(appendStyle);
+  },
 
-			return rules;
-		},
-		
-		addPrefixes: function(rule) {
-			var prefixes = ['-webkit-','-moz-','-o-'];
-			var prefixedRule = "";
-			prefixes.forEach(function(prefix){
-				prefixedRule += prefix + rule;
-			});
-			prefixedRule += rule;
-			return prefixedRule;
-		},
-		
-		overrideRules: function() {
-			/*
-			# TODO: write function that detects certain CSS3 rules and emptys out the rule to override
-			# e.g., rgba(0,0,0,0.4) can be overriden by rgba()
-			# 
-			# @rules = multiplebg images, mediaqueries, background-size?, @font-face?
-			*/	
+  addStyleBlock: function(){
+    // TODO: background-clip, background-origin, background-size?, animation
+    var rules = [
+      "border-radius:0!important;",
+      "box-shadow:none!important;",
+      "column-span:all!important;",
+      "text-shadow:none!important;",
+      "transform:none!important;",
+      "transition:none!important;"
+    ];
 
-			var newRules = "";
-			
-			// - loop each stylesheet
-			for(var i=0; i < document.styleSheets.length; i++) {
-				var stylesheet = document.styleSheets[i];
-				
-				if(stylesheet.cssRules) {
-				var numRules = stylesheet.cssRules.length;
-				var rulesToDelete = [];
-				
-					// -- loop each rule
-					for(var j=0; j < numRules; j++) {
-				
-							var newRule = "";
-							var currentRule = stylesheet.cssRules[j];
-							var currentRuleText = currentRule.cssText;
-							
-							var found = currentRuleText.match(/\@media|column-count|rgba|hsla|linear-gradient/g);
-							
-							if(found) {
-		
-								if(found.indexOf("@media") > -1) {
-									// newRule = newRule + "";
-								} else {
-									
-									newRule = currentRuleText;
-									
-									if(found.indexOf('column-count') > -1) {
-										newRule = newRule.replace(/column-count:(.*?)\;/g, 'column-count: 1;');								
-									}
-									
-									if(found.indexOf('rgba') > -1) {
-										newRule = newRule.replace(/rgba\((.*?)\)\;/g, 'rgba();');
-									}
-		
-									if(found.indexOf('hsla') > -1) {
-										newRule = newRule.replace(/hsla\((.*?)\)\;/g, 'hsla();');
-									}
-		
-									if(found.indexOf('linear-gradient') > -1) {
-										newRule = newRule.replace(/linear-gradient\((.*?)\)\;/g, 'linear-gradient();');
-									}
-									
-								}
-								
-								// add this rule index to list of rules to be deleted.
-								rulesToDelete.push(j);
-		
-							}
-										
-						newRules += newRule;
-	
-					}
-				
-					rulesToDelete.reverse().forEach(function(element){
-						stylesheet.deleteRule(element);	
-					});
-				}
-			}
-			return newRules;
-			
-		}
+    return '* {' + rules.map(function(v){ return that.addPrefixes(v); }).join("") + '}';
+  },
+
+  addPrefixes: function(rule) {
+    var prefixes = ['-webkit-','-moz-','-o-', '-ms-', '-khtml-'];
+    return prefixes.join(rule) + rule;
+  },
+
+  /**
+   * TODO: write function that detects certain CSS3 rules and emptys out the rule to override
+   * e.g., rgba(0,0,0,0.4) can be overriden by rgba()
+   * 
+   * @rules = multiplebg images, mediaqueries, background-size?, @font-face?
+   */	
+
+  overrideRules: function() {
+
+    var map = function ( arr, fn ) {
+          return [].map.call( arr, fn );
+    };
+
+    // Go through each stylesheet and return an array of new rules for each, then convert to string
+    return map( document.styleSheets, function ( stylesheet ) {
+      var newRules = "";
+
+      // Bail if there are no styles
+      if ( ! stylesheet.cssRules ) {
+        return;
+      }
+
+      // Find the rules we want to delete
+      map( stylesheet.cssRules, function ( rule, idx ) {
+        var ruleText = rule.cssText,
+        found    = ruleText.match(/\@media|column-count|rgba|hsla|linear-gradient/g);
+
+        // Break early if there are no matches
+        if ( !found ) {
+          return;
+        }
+
+        if ( ~found.indexOf("@media") ) {
+          // newRule = newRule + "";
+        }
+        else {
+
+          newRule = currentRuleText;
+
+          if ( ~found.indexOf('column-count') ) {
+            newRule = newRule.replace(/column-count:(.*?)\;/g, 'column-count: 1;');								
+          }
+
+          if ( ~found.indexOf('rgba') ) {
+            newRule = newRule.replace(/rgba\((.*?)\)\;/g, 'rgba();');
+          }
+
+          if ( ~found.indexOf('hsla') ) {
+            newRule = newRule.replace(/hsla\((.*?)\)\;/g, 'hsla();');
+          }
+
+          if ( ~found.indexOf('linear-gradient') ) {
+            newRule = newRule.replace(/linear-gradient\((.*?)\)\;/g, 'linear-gradient();');
+          }
+
+        }
+
+        // Add to rule list
+        newRules += newRule;
+
+        // add this rule index to list of rules to be deleted.
+        return idx;
+      })
+      // Reverse this so our indexes keep cool
+      .reverse()
+      // loop through and delete them
+      .forEach(function(element){
+        stylesheet.deleteRule(element);	
+      });
+
+      // Return the set of new rules for this stylesheet
+      return newRules;
+    })
+    // Join all the rules as a string
+    .join("");
+  }
 }
 deCSS3.init();
