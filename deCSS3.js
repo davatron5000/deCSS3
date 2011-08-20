@@ -9,7 +9,8 @@ var deCSS3 = {
 
   addStyleBlock: function () {
     // TODO: background-clip, background-origin, background-size?, animation
-    var rules = [
+    var that  = this,
+        rules = [
       "border-radius:0!important;",
       "box-shadow:none!important;",
       "column-span:all!important;",
