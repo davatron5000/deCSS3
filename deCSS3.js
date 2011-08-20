@@ -39,11 +39,11 @@ var deCSS3 = {
     var map      = function ( arr, fn ) {
           return [].map.call( arr, fn );
         },
-        rFound   = new Regex( "\\@media|column-count|rgba|hsla|linear-gradient", "g" ),
-        rColumn  = new Regex( "column-count:(.*?)\\;", "g" ),
-        rRgba    = new Regex( "rgba\\((.*?)\\)\\;", "g" ),
-        rHsla    = new Regex( "hsla\\((.*?)\\)\\;", "g" ),
-        rLinear  = new Regex( "linear-gradient\\((.*?)\\)\\;", "g" );
+        rFound   = new RegExp( "\\@media|column-count|rgba|hsla|linear-gradient", "g" ),
+        rColumn  = new RegExp( "column-count:(.*?)\\;", "g" ),
+        rRgba    = new RegExp( "rgba\\((.*?)\\)\\;", "g" ),
+        rHsla    = new RegExp( "hsla\\((.*?)\\)\\;", "g" ),
+        rLinear  = new RegExp( "linear-gradient\\((.*?)\\)\\;", "g" );
 
     // Go through each stylesheet and return an array of new rules for each, then convert to string
     return map( document.styleSheets, function ( stylesheet ) {
