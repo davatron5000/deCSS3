@@ -69,7 +69,7 @@ var deCSS3 = {
         }
         else {
 
-          newRule = currentRuleText;
+          newRule = ruleText;
 
           if ( ~found.indexOf( 'column-count' ) ) {
             newRule = newRule.replace( rColumn, 'column-count: 1;' );								
