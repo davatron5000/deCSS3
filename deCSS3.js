@@ -1,13 +1,13 @@
 var deCSS3 = {
 
-  init: function(){
-    var appendStyle = document.createElement('style');
+  init: function () {
+    var appendStyle = document.createElement( 'style' );
     appendStyle.id = "deCSS3";
     appendStyle.textContent = this.addStyleBlock() + this.overrideRules();
-    document.body.appendChild(appendStyle);
+    document.body.appendChild( appendStyle );
   },
 
-  addStyleBlock: function(){
+  addStyleBlock: function () {
     // TODO: background-clip, background-origin, background-size?, animation
     var rules = [
       "border-radius:0!important;",
@@ -18,12 +18,12 @@ var deCSS3 = {
       "transition:none!important;"
     ];
 
-    return '* {' + rules.map(function(v){ return that.addPrefixes(v); }).join("") + '}';
+    return '* {' + rules.map(function( v ){ return that.addPrefixes( v ); }).join( "" ) + '}';
   },
 
-  addPrefixes: function(rule) {
-    var prefixes = ['-webkit-','-moz-','-o-', '-ms-', '-khtml-'];
-    return prefixes.join(rule) + rule;
+  addPrefixes: function ( rule ) {
+    var prefixes = [ '-webkit-','-moz-','-o-', '-ms-', '-khtml-' ];
+    return prefixes.join( rule ) + rule;
   },
 
   /**
@@ -33,11 +33,16 @@ var deCSS3 = {
    * @rules = multiplebg images, mediaqueries, background-size?, @font-face?
    */	
 
-  overrideRules: function() {
+  overrideRules: function () {
 
-    var map = function ( arr, fn ) {
+    var map      = function ( arr, fn ) {
           return [].map.call( arr, fn );
-    };
+        },
+        rFound   = new Regex( "\\@media|column-count|rgba|hsla|linear-gradient", "g" ),
+        rColumn  = new Regex( "column-count:(.*?)\\;", "g" ),
+        rRgba    = new Regex( "rgba\\((.*?)\\)\\;", "g" ),
+        rHsla    = new Regex( "hsla\\((.*?)\\)\\;", "g" ),
+        rLinear  = new Regex( "linear-gradient\\((.*?)\\)\\;", "g" );
 
     // Go through each stylesheet and return an array of new rules for each, then convert to string
     return map( document.styleSheets, function ( stylesheet ) {
@@ -51,34 +56,34 @@ var deCSS3 = {
       // Find the rules we want to delete
       map( stylesheet.cssRules, function ( rule, idx ) {
         var ruleText = rule.cssText,
-        found    = ruleText.match(/\@media|column-count|rgba|hsla|linear-gradient/g);
+            found    = ruleText.match( rFound );
 
         // Break early if there are no matches
         if ( !found ) {
           return;
         }
 
-        if ( ~found.indexOf("@media") ) {
+        if ( ~found.indexOf( '@media' ) ) {
           // newRule = newRule + "";
         }
         else {
 
           newRule = currentRuleText;
 
-          if ( ~found.indexOf('column-count') ) {
-            newRule = newRule.replace(/column-count:(.*?)\;/g, 'column-count: 1;');								
+          if ( ~found.indexOf( 'column-count' ) ) {
+            newRule = newRule.replace( rColumn, 'column-count: 1;' );								
           }
 
-          if ( ~found.indexOf('rgba') ) {
-            newRule = newRule.replace(/rgba\((.*?)\)\;/g, 'rgba();');
+          if ( ~found.indexOf( 'rgba' ) ) {
+            newRule = newRule.replace( rRgba, 'rgba();' );
           }
 
-          if ( ~found.indexOf('hsla') ) {
-            newRule = newRule.replace(/hsla\((.*?)\)\;/g, 'hsla();');
+          if ( ~found.indexOf( 'hsla' ) ) {
+            newRule = newRule.replace( rHsla, 'hsla();' );
           }
 
-          if ( ~found.indexOf('linear-gradient') ) {
-            newRule = newRule.replace(/linear-gradient\((.*?)\)\;/g, 'linear-gradient();');
+          if ( ~found.indexOf( 'linear-gradient' ) ) {
+            newRule = newRule.replace( rLinear, 'linear-gradient();' );
           }
 
         }
@@ -92,15 +97,15 @@ var deCSS3 = {
       // Reverse this so our indexes keep cool
       .reverse()
       // loop through and delete them
-      .forEach(function(element){
-        stylesheet.deleteRule(element);	
+      .forEach(function( element ){
+        stylesheet.deleteRule( element );	
       });
 
       // Return the set of new rules for this stylesheet
       return newRules;
     })
     // Join all the rules as a string
-    .join("");
+    .join( "" );
   }
 }
 deCSS3.init();
