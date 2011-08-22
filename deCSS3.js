@@ -35,18 +35,41 @@ var deCSS3 = {
    */	
 
   overrideRules: function () {
-
     var map      = function ( arr, fn ) {
           return [].map.call( arr, fn );
         },
+        ruleSets = {
+          column : {
+            regex    : new RegExp( "column-count:(.*?)\\;", "g" ),
+            sentinel : 'column-count',
+            repl     : 'column-count: 1;'
+          },
+          rgba   : {
+            regex    : new RegExp( "rgba\\((.*?)\\)\\;", "g" ),
+            sentinel : 'rgba',
+            repl     : 'rgba();'
+          },
+          hsla   : {
+            regex    : new RegExp( "hsla\\((.*?)\\)\\;", "g" ),
+            sentinel : 'hsla',
+            repl     : 'hsla();'
+          },
+          linear : {
+            regex    : new RegExp( "linear-gradient\\((.*?)\\)\\;", "g" ),
+            sentinel : 'linear-gradient',
+            repl     : 'linear-gradient();'
+          }
+        },
         rFound   = new RegExp( "\\@media|column-count|rgba|hsla|linear-gradient", "g" ),
-        rColumn  = new RegExp( "column-count:(.*?)\\;", "g" ),
-        rRgba    = new RegExp( "rgba\\((.*?)\\)\\;", "g" ),
-        rHsla    = new RegExp( "hsla\\((.*?)\\)\\;", "g" ),
-        rLinear  = new RegExp( "linear-gradient\\((.*?)\\)\\;", "g" );
+        ruleReplacer = function ( found, newRule, sentinel, regex, repl ) {
+          if ( ~ found.indexOf( sentinel ) ) {
+            newRule = newRule.replace( regex, repl );
+          }
+          return newRule;
+        };
 
     // Go through each stylesheet and return an array of new rules for each, then convert to string
-    return map( document.styleSheets, function ( stylesheet ) {
+    map( document.styleSheets, function ( stylesheet ) {
       var newRules = "";
 
       // Bail if there are no styles
@@ -57,36 +80,19 @@ var deCSS3 = {
       // Find the rules we want to delete
       map( stylesheet.cssRules, function ( rule, idx ) {
         var ruleText = rule.cssText,
-            found    = ruleText.match( rFound );
+            found    = ruleText.match( rFound ),
+            i, ruleSet;
 
         // Break early if there are no matches
         if ( !found ) {
           return;
         }
 
-        if ( ~found.indexOf( '@media' ) ) {
-          // newRule = newRule + "";
-        }
-        else {
+        newRule = ruleText;
 
-          newRule = ruleText;
-
-          if ( ~found.indexOf( 'column-count' ) ) {
-            newRule = newRule.replace( rColumn, 'column-count: 1;' );								
-          }
-
-          if ( ~found.indexOf( 'rgba' ) ) {
-            newRule = newRule.replace( rRgba, 'rgba();' );
-          }
-
-          if ( ~found.indexOf( 'hsla' ) ) {
-            newRule = newRule.replace( rHsla, 'hsla();' );
-          }
-
-          if ( ~found.indexOf( 'linear-gradient' ) ) {
-            newRule = newRule.replace( rLinear, 'linear-gradient();' );
-          }
-
+        for ( i in ruleSets ) {
+          ruleSet = ruleSets[ i ];
+          newRule = ruleReplacer( found, newRule, ruleSet.sentinel, ruleSet.regex, ruleSet.repl );
         }
 
         // Add to rule list
@@ -99,7 +105,10 @@ var deCSS3 = {
       .reverse()
       // loop through and delete them
       .forEach(function( element ){
-        stylesheet.deleteRule( element );	
+        if ( typeof element != 'undefined' ) {
+          console.log( 'deleting', element );
+          stylesheet.deleteRule( element );
+        }
       });
 
       // Return the set of new rules for this stylesheet
