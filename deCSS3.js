@@ -24,7 +24,7 @@ var deCSS3 = {
 
   addPrefixes: function ( rule ) {
     var prefixes = [ '-webkit-','-moz-','-o-', '-ms-', '-khtml-' ];
-    return prefixes.join( rule ) + rule;
+    return prefixes.join( rule ) + rule + rule;
   },
 
   /**
@@ -40,27 +40,27 @@ var deCSS3 = {
         },
         ruleSets = {
           column : {
-            regex    : new RegExp( "column-count:(.*?)\\;", "g" ),
+            regex    : /column-count(.*?)\;/g,
             sentinel : 'column-count',
             repl     : 'column-count: 1;'
           },
           rgba   : {
-            regex    : new RegExp( "rgba\\((.*?)\\)\\;", "g" ),
+            regex    : /rgba\((.*?)\)\;/g,
             sentinel : 'rgba',
             repl     : 'rgba();'
           },
           hsla   : {
-            regex    : new RegExp( "hsla\\((.*?)\\)\\;", "g" ),
+            regex    : /hsla\((.*?)\)\;/g,
             sentinel : 'hsla',
             repl     : 'hsla();'
           },
           linear : {
-            regex    : new RegExp( "linear-gradient\\((.*?)\\)\\;", "g" ),
+            regex    : /linear-gradient\((.*?)\)\;/g,
             sentinel : 'linear-gradient',
             repl     : 'linear-gradient();'
           }
         },
-        rFound   = new RegExp( "\\@media|column-count|rgba|hsla|linear-gradient", "g" ),
+        rFound   = /\@media|column-count|rgba|hsla|linear-gradient/g,
         ruleReplacer = function ( found, newRule, sentinel, regex, repl ) {
           if ( ~ found.indexOf( sentinel ) ) {
             newRule = newRule.replace( regex, repl );
@@ -69,7 +69,7 @@ var deCSS3 = {
         };
 
     // Go through each stylesheet and return an array of new rules for each, then convert to string
-    map( document.styleSheets, function ( stylesheet ) {
+    return map( document.styleSheets, function ( stylesheet ) {
       var newRules = "";
 
       // Bail if there are no styles
@@ -90,6 +90,7 @@ var deCSS3 = {
 
         newRule = ruleText;
 
+        // Loop through each rule set and apply it to this css rule
         for ( i in ruleSets ) {
           ruleSet = ruleSets[ i ];
           newRule = ruleReplacer( found, newRule, ruleSet.sentinel, ruleSet.regex, ruleSet.repl );
@@ -106,7 +107,6 @@ var deCSS3 = {
       // loop through and delete them
       .forEach(function( element ){
         if ( typeof element != 'undefined' ) {
-          console.log( 'deleting', element );
           stylesheet.deleteRule( element );
         }
       });
@@ -118,4 +118,5 @@ var deCSS3 = {
     .join( "" );
   }
 }
+// Auto-init
 deCSS3.init();
