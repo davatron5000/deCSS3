@@ -11,20 +11,21 @@ var deCSS3 = {
     // TODO: background-clip, background-origin, background-size?, animation
     var that  = this,
         rules = [
-      "border-radius:0!important;",
-      "box-shadow:none!important;",
-      "column-span:all!important;",
-      "text-shadow:none!important;",
-      "transform:none!important;",
-      "transition:none!important;"
+      "border-radius:0",
+      "box-shadow:none",
+      "column-span:all",
+      "text-shadow:none",
+      "transform:none",
+      "transition:none"
     ];
 
     return '* {' + rules.map(function( v ){ return that.addPrefixes( v ); }).join( "" ) + '}';
   },
 
   addPrefixes: function ( rule ) {
-    var prefixes = [ '-webkit-','-moz-','-o-', '-ms-', '-khtml-' ];
-    return prefixes.join( rule ) + rule + rule;
+    var prefixes = [ '-webkit-','-moz-','-o-', '-ms-', '-khtml-' ],
+        postfix  = '!important;';
+    return prefixes.join( rule + postfix ) + rule + postfix + rule + postfix;
   },
 
   /**
