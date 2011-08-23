@@ -38,7 +38,8 @@ var deCSS3 = {
       "animation:none",
       "background-clip:border-box",
       "background-origin:0 0",
-      "background-size:auto"
+      "background-size:auto",
+      "border-image:none"
     ];
 
     return '* {' + rules.map(function( v ){ return that.addPrefixes( v ); }).join( "" ) + '}';

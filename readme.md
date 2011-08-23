@@ -31,6 +31,9 @@ Our cloud-based feature matrix serves as a roadmap for what is hopefully full su
   <td><code>border-radius</code></td><td>Yes</td>
 </tr>
 <tr>
+  <td><code>border-image</code></td><td>Yes</td>
+</tr>
+<tr>
   <td><code>box-shadow</code></td><td>Yes</td>
 </tr>
 <tr>
