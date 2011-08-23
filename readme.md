@@ -16,16 +16,16 @@ Our cloud-based feature matrix serves as a roadmap for what is hopefully full su
 </thead>
 <tbody>
 <tr>
-  <td><code>animation</code></td><td>No</td>
+  <td><code>animation</code></td><td>Yes</td>
 </tr>
 <tr>
-  <td><code>background-clip</code></td><td>No</td>
+  <td><code>background-clip</code></td><td>Yes</td>
 </tr>
 <tr>
-  <td><code>background-origin</code></td><td>No</td>
+  <td><code>background-origin</code></td><td>Yes</td>
 </tr>
 <tr>
-  <td><code>background-size</code></td><td>No</td>
+  <td><code>background-size</code></td><td>Yes</td>
 </tr>
 <tr>
   <td><code>border-radius</code></td><td>Yes</td>
