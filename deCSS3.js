@@ -28,6 +28,7 @@ var deCSS3 = {
     // TODO: background-clip, background-origin, background-size?, animation
     var that  = this,
         rules = [
+      "animation-name:none",
       "border-radius:0",
       "box-shadow:none",
       "column-span:all",
