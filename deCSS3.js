@@ -1,11 +1,28 @@
 var deCSS3 = {
 
-  init: function () {
+  init: function ( addedStyles ) {
     var appendStyle = document.createElement( 'style' );
-    appendStyle.id = "deCSS3";
-    appendStyle.textContent = this.addStyleBlock() + this.overrideRules();
-    document.body.appendChild( appendStyle );
+    if ( ! addedStyles || ! addedStyles.length ) {
+      this.overrideRules();
+      appendStyle.className = 'deCSS3-Style';
+      appendStyle.textContent = this.addStyleBlock();
+      document.body.appendChild( appendStyle );
+    }
+    else {
+      // Remove the injected ones
+      [].forEach.call( addedStyles, function( elem ) {
+        elem.parentNode.removeChild( elem );
+      });
+      // Inject the old versions back in and delete the placeholders
+      [].forEach.call( document.querySelectorAll( '.deCSS3-Placeholder' ), function ( elem ) {
+        var appendStyle = document.createElement( 'style' );
+        appendStyle.textContent = elem.innerHTML;
+        elem.parentNode.insertBefore( appendStyle, elem );
+        elem.parentNode.removeChild( elem );
+      });
+    }
   },
+
 
   addStyleBlock: function () {
     // TODO: background-clip, background-origin, background-size?, animation
@@ -36,10 +53,7 @@ var deCSS3 = {
    */	
 
   overrideRules: function () {
-    var map      = function ( arr, fn ) {
-          return [].map.call( arr, fn );
-        },
-        ruleSets = {
+    var ruleSets = {
           column : {
             regex    : /column-count(.*?)\;/g,
             sentinel : 'column-count',
@@ -63,15 +77,18 @@ var deCSS3 = {
         },
         rFound   = /\@media|column-count|rgba|hsla|linear-gradient/g,
         ruleReplacer = function ( found, newRule, sentinel, regex, repl ) {
-          if ( ~ found.indexOf( sentinel ) ) {
+          if ( found && ~ found.indexOf( sentinel ) ) {
             newRule = newRule.replace( regex, repl );
           }
           return newRule;
         };
 
     // Go through each stylesheet and return an array of new rules for each, then convert to string
-    return map( document.styleSheets, function ( stylesheet ) {
-      var newRules = "";
+    [].forEach.call( document.styleSheets, function ( stylesheet ) {
+      var newRules = "",
+          oldRules = "",
+          stylePlaceholder = document.createElement( 'div' ),
+          appendStyle = document.createElement( 'style' );
 
       // Bail if there are no styles
       if ( ! stylesheet.cssRules ) {
@@ -79,16 +96,12 @@ var deCSS3 = {
       }
 
       // Find the rules we want to delete
-      map( stylesheet.cssRules, function ( rule, idx ) {
+      [].forEach.call( stylesheet.cssRules, function ( rule, idx ) {
         var ruleText = rule.cssText,
             found    = ruleText.match( rFound ),
             i, ruleSet;
 
-        // Break early if there are no matches
-        if ( !found ) {
-          return;
-        }
-
+        oldRules += ruleText;
         newRule = ruleText;
 
         // Loop through each rule set and apply it to this css rule
@@ -99,25 +112,30 @@ var deCSS3 = {
 
         // Add to rule list
         newRules += newRule;
-
-        // add this rule index to list of rules to be deleted.
-        return idx;
-      })
-      // Reverse this so our indexes keep cool
-      .reverse()
-      // loop through and delete them
-      .forEach(function( element ){
-        if ( typeof element != 'undefined' ) {
-          stylesheet.deleteRule( element );
-        }
       });
 
-      // Return the set of new rules for this stylesheet
-      return newRules;
-    })
-    // Join all the rules as a string
-    .join( "" );
+      // Create a placeholder element to hold the old rules
+      stylePlaceholder.className = 'deCSS3-Placeholder';
+      stylePlaceholder.style.display = 'none';
+      stylePlaceholder.innerHTML = oldRules;
+
+      // Create the modified styles
+      appendStyle.className = 'deCSS3-Style';
+      appendStyle.textContent = newRules;
+
+      // Inject the new style
+      stylesheet.ownerNode.parentNode.insertBefore( appendStyle, stylesheet.ownerNode );
+      // Inject the placeholder style (to maintain order)
+      stylesheet.ownerNode.parentNode.insertBefore( stylePlaceholder, stylesheet.ownerNode );
+      // delete the old one
+      stylesheet.ownerNode.parentNode.removeChild( stylesheet.ownerNode );
+
+      // Just in case
+      if ( stylesheet ) {
+        stylesheet.disabled = true;
+      }
+    });
   }
 }
 // Auto-init
-deCSS3.init();
+deCSS3.init( document.querySelectorAll( '.deCSS3-Style' ) );
