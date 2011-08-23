@@ -4,6 +4,8 @@
     <title>deCSS3</title>
     <style type="text/css" media="screen">
       body {
+        background: #0a101f;
+        color: #fff;
         padding: 40px;
       }
 
@@ -12,10 +14,6 @@
         text-align: center;
       }
       a {
-        background: #444;
-        background-image: -webkit-linear-gradient(top, #444444, #999999);
-        border-radius: 10px;
-        box-shadow: 10px 10px 10px #000;
         color:#fff;
         color:rgba(255,255,255,0.8);
         display: block;
@@ -26,19 +24,101 @@
         margin: 0 auto;
         text-align:center;
         text-decoration: none;
-        text-shadow: 2px 2px 2px #000;
         width: 400px;
-        -webkit-transform: rotate(-5deg);
-        -webkit-transition: all 1s linear;
       }
 
       a:hover {
         background: #f00;
       }
+      
 
-      p:last-of-type {
-        -webkit-column-count: 3;
+      /* -------------------------------------------------------------
+            Styles taken from:
+            CSS3, Please! The Cross-Browser CSS3 Rule Generator
+      ------------------------------------------------------------- */
+      .box_round {
+           -moz-border-radius: 12px; /* FF1-3.6 */
+        -webkit-border-radius: 12px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+                border-radius: 12px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+
+        /* useful if you don't want a bg color from leaking outside the border: */        
+        -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box; 
       }
+      .box_shadow {
+           -moz-box-shadow: 0px 0px 4px #ffffff; /* FF3.5 - 3.6 */
+        -webkit-box-shadow: 0px 0px 4px #ffffff; /* Saf3.0+, Chrome */
+                box-shadow: 0px 0px 4px #ffffff; /* Opera 10.5, IE9, FF4+, Chrome 10+ */
+      }
+      .box_gradient {
+        background-color: #444444;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#444444), to(#999999)); /* Saf4+, Chrome */
+        background-image: -webkit-linear-gradient(top, #444444, #999999); /* Chrome 10+, Saf5.1+ */
+        background-image:    -moz-linear-gradient(top, #444444, #999999); /* FF3.6 */
+        background-image:     -ms-linear-gradient(top, #444444, #999999); /* IE10 */
+        background-image:      -o-linear-gradient(top, #444444, #999999); /* Opera 11.10+ */
+        background-image:         linear-gradient(top, #444444, #999999);
+                  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#444444', EndColorStr='#999999'); /* IE6–IE9 */
+      }
+      .box_rgba {
+        background-color: transparent;
+        background-color: rgba(180, 180, 144, 0.6);  /* FF3+, Saf3+, Opera 10.10+, Chrome, IE9 */
+                  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99B4B490,endColorstr=#99B4B490); /* IE6–IE9 */
+                  zoom: 1;
+      }
+      .box_rotate {
+           -moz-transform: rotate(7.5deg);  /* FF3.5+ */
+             -o-transform: rotate(7.5deg);  /* Opera 10.5 */
+        -webkit-transform: rotate(7.5deg);  /* Saf3.1+, Chrome */
+            -ms-transform: rotate(7.5deg);  /* IE9 */
+                transform: rotate(7.5deg);  
+                   filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.9914448613738104, M12=-0.13052619222005157,M21=0.13052619222005157, M22=0.9914448613738104, sizingMethod='auto expand'); /* IE6–IE9  */
+                     zoom: 1;
+      }
+
+      .box_transition {
+        -webkit-transition: all 0.3s ease-out;  /* Saf3.2+, Chrome */
+           -moz-transition: all 0.3s ease-out;  /* FF4+ */
+            -ms-transition: all 0.3s ease-out;  /* IE10? */
+             -o-transition: all 0.3s ease-out;  /* Opera 10.5+ */
+                transition: all 0.3s ease-out;  
+      }
+
+      .box_textshadow {
+           text-shadow: 1px 1px 3px #888; /* FF3.5+, Opera 9+, Saf1+, Chrome */
+      }
+      
+      .box_bgsize {
+        -webkit-background-size: 100% 100%; /* Saf3-4 */
+           -moz-background-size: 100% 100%; /* FF3.6 */
+                background-size: 100% 100%; /* Opera, IE9, Saf5, Chrome, FF4 */
+      }
+
+      .box_columns {
+        -webkit-column-count: 2;  -webkit-column-gap: 15px; /* Saf3, Chrome */
+           -moz-column-count: 2;     -moz-column-gap: 15px; /* FF3.5+ */
+                column-count: 2;          column-gap: 15px; /* Opera 11+ */
+      } 
+      /* -------------------------------------------------------------
+            deCSS3 Please! CSS Test Objects 
+      -------------------------------------------------------------*/
+      .animated {
+        -webkit-animation-name: spin;
+        -webkit-animation-duration: 4s;
+        -webkit-animation-iteration-count: infinite;
+        -webkit-animation-timing-function: linear;
+      }
+      
+      @-webkit-keyframes spin {
+        0% {
+          -webkit-transform: rotateZ(0deg);
+        }
+        100% {
+          -webkit-transform: rotateZ(-360deg);
+        }
+      }
+      .multiple_backgrounds {
+        background: url(http://placehold.it/150x150) no-repeat 10% center, url(http://placehold.it/150x150) no-repeat 50% center, url(http://placehold.it/150x150) no-repeat 90% center;
+      }     
     </style>
     <style>
       @media screen and (max-width: 400px) {
@@ -50,19 +130,22 @@
     </style>
   </head>
   <body>
-    <header>
-    <a href="#">deCSS3 Me!</a>
+    <header class="multiple_backgrounds">
+    <a href="" class="box_round box_shadow box_gradient box_rotate box_transition">deCSS3 Me!</a>
     </header>
 
     <section>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p class="box_columns">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+    <img src="http://placekitten.com/100/100" class="box_round animated"/>
     </section>
 
     <script>
       var trigger = document.getElementsByTagName('a');
-      trigger[0].onclick = function(){ 
+      trigger[0].onclick = function(e){ 
+        e.preventDefault();
         s=document.createElement('script');
         s.type='text/javascript';
         s.src='deCSS3.js?v='+parseInt(Math.random()*99999999);
