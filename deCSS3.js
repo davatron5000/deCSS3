@@ -33,7 +33,11 @@ var deCSS3 = {
       "column-span:all",
       "text-shadow:none",
       "transform:none",
-      "transition:none"
+      "transition:none",
+      "animation:none",
+      "background-clip:border-box",
+      "background-origin:0 0",
+      "background-size:auto"
     ];
 
     return '* {' + rules.map(function( v ){ return that.addPrefixes( v ); }).join( "" ) + '}';
@@ -41,7 +45,7 @@ var deCSS3 = {
 
   addPrefixes: function ( rule ) {
     var prefixes = [ '-webkit-','-moz-','-o-', '-ms-', '-khtml-' ],
-        postfix  = '!important;';
+        postfix  = ' !important;';
     return prefixes.join( rule + postfix ) + rule + postfix + rule + postfix;
   },
 
