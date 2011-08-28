@@ -21,6 +21,7 @@ var deCSS3 = {
         elem.parentNode.removeChild( elem );
       });
     }
+    this.toggleModernizr();
   },
 
 
@@ -141,6 +142,24 @@ var deCSS3 = {
         stylesheet.disabled = true;
       }
     });
+  },
+  
+  toggleModernizr: function(){
+    if (!window.Modernizr) return;
+    
+    var newclasses = document.documentElement.className,
+        bool, regex, match
+    
+    for (var feat in Modernizr){
+      bool = Modernizr[feat];
+      regex = RegExp('(?:^|\\s)(no-)?' + feat + '(?:\\s|$)');
+      match = newclasses.match(regex);
+      
+      if (match){
+        newclasses = newclasses.replace(regex, (((match[1] == 'no-') ? ' ' : ' no-') + feat) + ' ')
+      }      
+    }
+    document.documentElement.className = newclasses;
   }
 }
 // Auto-init
