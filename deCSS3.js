@@ -1,7 +1,12 @@
 var deCSS3 = {
 
   init: function ( addedStyles ) {
+
+    this.addedStyles = addedStyles;
+    this.toggleModernizr();
+    
     var appendStyle = document.createElement( 'style' );
+    
     if ( ! addedStyles || ! addedStyles.length ) {
       this.overrideRules();
       appendStyle.className = 'deCSS3-Style';
@@ -141,6 +146,28 @@ var deCSS3 = {
         stylesheet.disabled = true;
       }
     });
+  },
+  
+  toggleModernizr: function(){
+    if (!window.Modernizr) return;
+    
+    var newclasses = document.documentElement.className,
+        clear = ( ! this.addedStyles || ! this.addedStyles.length ),
+        bool, regex, match
+    
+    for (var feat in Modernizr){
+      bool = Modernizr[feat];
+      regex = RegExp('(?:^|\\s)(no-)?' + feat + '(?:\\s|$)');
+      match = newclasses.match(regex);
+      
+      if (match){
+        newclasses = newclasses.replace(regex, (( clear           ? ' no-' : 
+                                                  Modernizr[feat] ? ' '    : 
+                                                  ' no-')
+                                                   + feat) + ' ');
+      }
+    }
+    document.documentElement.className = newclasses;
   }
 }
 // Auto-init
