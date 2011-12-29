@@ -47,7 +47,7 @@ var deCSS3 = {
       "border-image:none"
     ];
 
-    return '* {' + rules.map(function( v ){ return that.addPrefixes( v ); }).join( "" ) + '}';
+    return '*, *:before, *:after {' + rules.map(function( v ){ return that.addPrefixes( v ); }).join( "" ) + '}';
   },
 
   addPrefixes: function ( rule ) {
