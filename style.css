@@ -502,14 +502,17 @@ font-weight: bold;
 line-height: 1;
 -moz-border-radius: 5px;
 -webkit-border-radius: 5px;
+border-radius:5px;
 -moz-box-shadow: 0 1px 3px #999;
 -webkit-box-shadow: 0 1px 3px #999;
+box-shadow: 0 1px 3px #999;
 text-shadow: 0 -1px 1px #222;
 border-bottom: 1px solid #222;
 position: relative;
 cursor: pointer;
 -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
 -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+box-shadow: 0 1px 3px rgba(0,0,0,0.5);
 text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
 border-bottom: 1px solid rgba(0,0,0,0.25);
 }
