@@ -66,3 +66,7 @@ Our cloud-based feature matrix serves as a roadmap for what is hopefully full su
 ## Want to help?
 
 If you're interested in helping? Please let us know! We're looking for a brain trust.
+
+## License
+
+WTFPL yo.
